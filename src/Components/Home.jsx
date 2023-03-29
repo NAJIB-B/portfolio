@@ -14,7 +14,7 @@ const Home = () => {
   const textContent = useRef();
   const handleDownload = () => {
     saveAs(
-      "google drive url",
+      "https://drive.google.com/file/d/11pEt5s_P2yrOrcwK8YHWd4PIBQrS-Znl/view?usp=sharing",
       "Resume.pdf"
     )
   }
@@ -41,7 +41,7 @@ const Home = () => {
       <div className="home-text">
         <h1>
           <span className='gradientText'>
-            Hi, I'm Lorem!
+            Hi, I'm Najib!
           </span>
           <span>
             <span onClick={handleChange}>
@@ -55,7 +55,7 @@ const Home = () => {
         <TypeWriterEffect
           cursorColor="#1da1f2"
           multiText={[
-            'Web Developer',
+            'Frontend Developer',
             "Don't Forget to Scroll"
           ]}
           multiTextLoop={true}

@@ -1,37 +1,48 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, } from 'react'
 import '../styles/Mail.css'
-
-import { send } from 'emailjs-com';
+import Swal from 'sweetalert2'
+import emailjs from "emailjs-com";
 
 const Mail = () => {
-  const radio = useRef();
+  // const radio = useRef();
   const [toSend, setToSend] = useState({
     subject: '',
     name: '',
     email: '',
     message: ''
   });
-  const [isDisabled, setIsDisabled] = useState(false);
-  const valid = {
-    email: false,
-    rest: false
-  }
-  const error = useRef()
+  const [emailError, setEmailError] = useState(false);
+  const [nameError, setNameError] = useState(false);
+  const [messageError, setMessageError] = useState(false);
 
-  const validation = (email, name, message, subject) => {
+
+
+  const validation = (email, name, message) => {
+    if (!name.trim()) {
+      setNameError(true)
+      return
+    } else {
+      setNameError(false)
+    }
     const acceptedEmail = ['gmail.com', 'yahoo.com', 'outlook.com', 'protonmail.com', 'aol.com', 'icloud.com', 'me.com', 'mac.com', 'gmx.com', 'hey.com']
     if (email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
-      acceptedEmail.includes(email.split('@')[1]) ?
-        valid.email = true : valid.email = false
+      if(acceptedEmail.includes(email.split('@')[1])){
+        setEmailError(false)
+      }else{
+        setEmailError(true)
+        return
+      } 
     } else {
-      valid.email = false;
+      setEmailError(true)
+      return
     }
 
-    if (name !== '' && subject !== '' && message.length > 100) {
-      valid.rest = true;
-      console.log('here')
+    
+    if (!message.trim()) {
+      setMessageError(true)
+      return
     } else {
-      valid.rest = false;
+      setMessageError(false)
     }
   }
 
@@ -45,22 +56,41 @@ const Mail = () => {
   }
 
   const handleClick = () => {
-    validation(toSend.email, toSend.name, toSend.message, toSend.subject);
-    const condition = Object.values(valid).every((value) => value === true)
-    if (!condition) {
-      error.current.style.display = 'block'
-    } else {
-//       Using email.js to send emails https://www.emailjs.com/docs/sdk/installation/
-//       use .env to store ids and keys from email.js
-//       send(serviceID, templateID, {
-//         subject: toSend.subject,
-//         name: toSend.name,
-//         email: toSend.email,
-//         message: toSend.message,
-//       }, publicKey);
-      error.current.style.display = 'none'
-      reset();
-    }
+    validation(toSend.email, toSend.name, toSend.message);
+  
+    
+    const serviceID = process.env.REACT_APP_EMAILJS_SERVICE_ID
+    const templateID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID
+    const publicKey = process.env.REACT_APP_EMAILJS_PUBLICKEY
+    
+    
+    
+    
+            // Using email.js to send emails https://www.emailjs.com/docs/sdk/installation/
+      //  use .env to store ids and keys from email.js
+      try {
+        emailjs.send(serviceID, templateID, {
+          subject: toSend.subject,
+          name: toSend.name,
+          email: toSend.email,
+          message: toSend.message,
+       },publicKey).then((result)=>{
+         Swal.fire({
+           icon:"success",
+           title: "Message sent successfully"
+         })
+       })
+       reset();
+        
+      } catch (error) {
+        console.log(error)
+        Swal.fire({
+          icon: "error",
+          title:"Ooops something went wrong",
+          text:error.text,
+        })
+      }
+    
   }
 
 
@@ -68,17 +98,6 @@ const Mail = () => {
     setToSend({ ...toSend, [e.target.name]: e.target.value });
   };
 
-  useEffect(() => {
-    const arrayOfSub = ['work', 'chat', 'collaboration']
-    if (toSend.subject === '') {
-      setIsDisabled(false)
-    } else {
-      if (!(arrayOfSub.includes(toSend.subject))) {
-        radio.current.checked = false;
-        setIsDisabled(true)
-      }
-    }
-  }, [toSend.subject])
 
   return (
     <div className='mail' id='mail'>
@@ -89,59 +108,20 @@ const Mail = () => {
             <label htmlFor="name">Name</label>
             <input type="text" name="name" autoComplete='off' value={toSend.name} onChange={handleChange} />
           </div>
+          {nameError ? <p style={{ color: 'red' }}>Please input a name</p> : null}
+          
           <div>
             <label htmlFor="email">Email</label>
             <input type="email" name="email" autoComplete='off' value={toSend.email} onChange={handleChange} />
           </div>
-          <div className='options'>
-            <div>
-              <input
-                type="radio"
-                name="subject"
-                value='work'
-                id="work"
-                checked={toSend.subject === 'work'}
-                onChange={handleChange}
-                ref={radio}
-                disabled={isDisabled}
-              />
-              <label htmlFor="work">Work</label>
-            </div>
-            <div>
-              <input
-                type="radio"
-                name="subject"
-                value="collaboration"
-                id="collaboration"
-                checked={toSend.subject === 'collaboration'}
-                onChange={handleChange}
-                ref={radio}
-                disabled={isDisabled}
-              />
-              <label htmlFor="collaboration">Collaboration</label>
-            </div>
-            <div>
-              <input
-                type="radio"
-                name="subject"
-                value="chat"
-                id='chat'
-                checked={toSend.subject === 'chat'}
-                onChange={handleChange}
-                ref={radio}
-                disabled={isDisabled}
-              />
-              <label htmlFor="chat">Coffee Chat</label>
-            </div>
-            <div>
-              <input type="text" name="subject" id='other' placeholder='Other' autoComplete='off' onChange={handleChange} />
-            </div>
-          </div>
+          {emailError ? <p style={{ color: 'red' }}>Please input a valid email</p> : null}
+          
           <div>
             <label htmlFor="message">Message</label>
             <textarea name="message" cols="30" rows="10" value={toSend.message} onChange={handleChange}></textarea>
           </div>
-          <p style={{ color: 'red !important', display: 'none' }} ref={error}>Something is missing</p>
+          {messageError ? <p style={{ color: 'red' }}>Please input a message</p> : null}
+          {/* <p style={{ color: 'red !important', display: 'none' }} ref={error}>Something is missing</p> */}
           <div className='btn' onClick={handleClick}>Send Message</div>
         </div>
       </div>

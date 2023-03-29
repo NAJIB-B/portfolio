@@ -58,8 +58,8 @@
 .react:hover {
 	--skill-color: #00d8ff;
 }
-.node:hover {
-	--skill-color: #539e43;
+.tail:hover {
+	--skill-color: #61c7e6;
 }
 .fig:hover {
 	--skill-color: #a259ff;
