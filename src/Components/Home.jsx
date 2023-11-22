@@ -15,7 +15,7 @@ const Home = () => {
   const handleDownload = () => {
     // const file = new File("../../assets/Resume.pdf")
     saveAs(
-      "https://drive.google.com/file/d/1lDiEriUUpjkA3GmYsmE-NAnsChc8A9Q7/view?usp=sharing",
+      "https://drive.google.com/file/d/1ghPY7awYOYoDj3JjI_uubEXyFM-U2lFr/view?usp=drivesdk",
       "Resume.pdf"
     )
   }
