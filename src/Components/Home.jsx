@@ -68,7 +68,7 @@ const Home = () => {
             Hire Me
           </Link>
 
-          <div onClick={handleDownload} className='btn2'>View Resume</div>
+          <Link href="https://drive.google.com/file/d/1ghPY7awYOYoDj3JjI_uubEXyFM-U2lFr/view?usp=drivesdk"><div className='btn2'>View Resume</div></Link>
         </div>
       </div>
 
