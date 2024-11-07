@@ -4,7 +4,7 @@ import '../styles/Home.css'
 
 import TypeWriterEffect from 'react-typewriter-effect';
 import { animateScroll } from 'react-scroll';
-import { saveAs } from "file-saver";
+//import { saveAs } from "file-saver";
 import { Link } from 'react-scroll';
 
 const Home = () => {
