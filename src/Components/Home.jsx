@@ -12,13 +12,13 @@ const Home = () => {
   const arrayOfWords = ['Tap again', 'Helllo', 'You found this', 'I added this...', 'because it seemed cool', `so here's something`, 'did you know that...', `You can't breathe and talk.`, 'the earth is 71% water.', `It snows in the Sahara Desert
 `,]
   const textContent = useRef();
-  const handleDownload = () => {
+  /**const handleDownload = () => {
     // const file = new File("../../assets/Resume.pdf")
     saveAs(
-      "https://drive.google.com/file/d/1ghPY7awYOYoDj3JjI_uubEXyFM-U2lFr/view?usp=drivesdk",
+      "https://drive.google.com/file/d/1kKZIaIFxxZiKx78MsN2SZWlQ8XmuacDu/view?usp=sharing",
       "Resume.pdf"
     )
-  }
+  }**/
 
   const handleChange = () => {
     textContent.current.style.display = 'inline-block';
@@ -68,7 +68,7 @@ const Home = () => {
             Hire Me
           </Link>
 
-          <a href="https://drive.google.com/file/d/1ghPY7awYOYoDj3JjI_uubEXyFM-U2lFr/view?usp=drivesdk"><div className='btn2'>View Resume</div></a>
+          <a href="https://drive.google.com/file/d/1kKZIaIFxxZiKx78MsN2SZWlQ8XmuacDu/view?usp=sharing"><div className='btn2'>View Resume</div></a>
         </div>
       </div>
 
