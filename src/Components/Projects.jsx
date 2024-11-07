@@ -4,7 +4,31 @@ import '../styles/Projects.css';
 
 const Projects = () => {
   const projectsInfo = [
+     {
+      name: 'Meta bnb',
+      desc: 'Created a visually immersive frontend for a virtual metaverse, focused on aesthetics and user experience, featuring interactive elements and dynamic environments',
+      liveLink: 'https://najib-metabnb.netlify.app/',
+      githubLink: 'https://github.com/NAJIB-B/metabnb',
+      techs: ['React', 'tailwind Css'],
+      isOpenSource: false
+    },
     {
+      name: 'Readvisory',
+      desc: 'Developed a responsive real estate website for a client, featuring optimized SEO to increase visibility and attract target audience traffic',
+      liveLink: 'https://www.readvisory.ng/',
+      githubLink: 'https://github.com/NAJIB-B/readvisory',
+      techs: ['Next', 'tailwind Css', 'SEO'],
+      isOpenSource: false
+    },
+     {
+      name: 'Music App',
+      desc: 'Developed a music player app with an intuitive interface, allowing users to play, pause, and skip tracks, enhancing the overall listening experience',
+      liveLink: 'https://najib-music-app.netlify.app/',
+      githubLink: 'https://github.com/NAJIB-B/music-player-app',
+      techs: ['Typescript', 'React', 'tailwind Css'],
+      isOpenSource: false
+    },
+      {
       name: 'Najib quiz',
       desc: 'A simple quiz app that can be utilized by small schools for testing students, You can set your quiz and share your quiz link with friends',
       liveLink: 'https://master.d2jlldhnm1hiur.amplifyapp.com/',
